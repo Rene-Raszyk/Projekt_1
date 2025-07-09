@@ -34,42 +34,30 @@ TEXTS = [
     in modern oceans. Other fish such as paddlefish,
     garpike and stingray are also present.'''
 ]
-users = ("bob", "ann", "mike", "liz")
-passwords = ("123", "pass123", "password123", "pass123")
-# print(type(passwords))
 
+uzivatele = ("bob", "ann", "mike", "liz")
+heslo = ("123", "pass123", "password123", "pass123")
 
-user_name = input("\nusername: ")
-user_password = input("password: ")
-n=0
+uzivatelske_jmeno = input("\nusername: ")
+uzivatelske_heslo = input("password: ")
 
-for name in users:
-    
-    if name == user_name and user_password == passwords[n]:
+for index, name in enumerate(uzivatele):
+    if name == uzivatelske_jmeno and uzivatelske_heslo == heslo[index]:
         print("----------------------------------------")
-        print("Welcome to the app,", user_name)
+        print("Welcome to the app,", uzivatelske_jmeno)
         print("We have 3 texts to be analyzed.")
         print("----------------------------------------")
         break
-    n += 1
 else:
     print("unregistered user, terminating the program..\n")
     exit()
 
-
-druh_text = int()
 druh_text = input("Enter a number btw. 1 and 3 to select: ")
 print("----------------------------------------")
 
-
-if not druh_text.isdigit():
+if (not druh_text.isdigit()) or (not 1 <= int(druh_text) <= 3):
     print("Wrong number, terminating the program..")
     exit()
-if not 1 <= int(druh_text) <= 3:
-    print("Wrong number, terminating the program..")
-    exit()
-
-
 
 druh_text = int(druh_text) - 1
 
@@ -91,36 +79,27 @@ for pocet in slova:
     delka = len(pocet)
 
     if delka == 0:
-        #print(pocet, delka)
         continue
     else:
-
-        if pocet.isupper():
+        pocet_vsech_slov += 1
+        if pocet.isupper():     # opravit 1 -
             pocet_vseho_velkyho += 1
-            pocet_vsech_slov += 1
-
+            
         if pocet.istitle():
-            pocet_vsech_slov += 1
             pocet_velkych_slov += 1
-
+            
         if pocet.islower():
-            pocet_vsech_slov += 1
             pocet_malych_slov += 1
-
+            
         if pocet.isnumeric():
-            pocet_vsech_slov += 1
             pocet_cisel += 1
-            suma_cisel = suma_cisel + int(pocet)
-
-        #delka = len(pocet)
+            suma_cisel = suma_cisel + int(pocet)    # opravit - 1
+        
         if delka in cetnosti:
             cetnosti[delka] = cetnosti[delka] + 1
         else:
             cetnosti[delka] = 1
         
-        #print(pocet, delka)
-
-#print(slova)
 
 print("There are",pocet_vsech_slov,"words in the selected text.")
 print("There are",pocet_velkych_slov,"titlecase words.")
@@ -132,27 +111,25 @@ print("----------------------------------------")
 print("LEN|  OCCURENCES  |NR.")
 print("----------------------------------------")
 
-huhu = len(cetnosti) + 1
-pocet = 1
-#print(huhu)
-#print(cetnosti)
 mezera = " "
-mezera_text = " "
-star = "*"
-string_stars = str()
+vypis_mezer = " "
+hvezda = "*"
+vypis_hvezd = str()
 
-for pocet in range(min(cetnosti), huhu):
+serazeni = sorted(cetnosti)
+
+for pocet in serazeni:
     cislo_cetnosti = cetnosti[pocet]
 
     for _ in range(cislo_cetnosti):
-        string_stars = string_stars + star
-    
+        vypis_hvezd = vypis_hvezd + hvezda
+
     if pocet < 10:
-        mezera_text = mezera_text + mezera
+        vypis_mezer = vypis_mezer + mezera
     
-    print(f"{mezera_text}{pocet}| {string_stars:<20} |{cetnosti[pocet]}")
+    print(f"{vypis_mezer}{pocet}| {vypis_hvezd:<20} |{cetnosti[pocet]}")
     
-    string_stars = ""
-    mezera_text = " "
+    vypis_hvezd = ""
+    vypis_mezer = " "
     
 print("\n")
